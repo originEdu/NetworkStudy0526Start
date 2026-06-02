@@ -16,14 +16,21 @@ class NETWORKSTUDY_API ALobbyPlayerState : public APlayerState
 public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool Ready;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_Nickname)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, ReplicatedUsing = OnRep_Nickname)
 	FText Nickname;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void RefreshLobbyUI();
 
 	UFUNCTION()
 	void OnRep_Nickname(); //닉네임이 변경되었을 때 호출
 
+	UFUNCTION(BlueprintCallable)
+	void SetNickname(const FText& NewNickname);
+
 	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty> &OutLifetimeProps) const;
 
+	
 	
 	
 };

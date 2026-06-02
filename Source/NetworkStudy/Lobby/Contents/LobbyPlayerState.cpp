@@ -2,10 +2,18 @@
 
 #include "Lobby/Contents/LobbyPlayerState.h"
 #include "Net/UnrealNetwork.h"
+#include "Lobby/UI/LobbyUserWidget.h"
 
 void ALobbyPlayerState::OnRep_Nickname()
 {
-	//RefreshLobbyUI() 호출
+	RefreshLobbyUI();
+}
+
+void ALobbyPlayerState::SetNickname(const FText& NewNickname)
+{
+	if (!HasAuthority()) return;
+	Nickname = NewNickname;
+	OnRep_Nickname();
 }
 
 void ALobbyPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
